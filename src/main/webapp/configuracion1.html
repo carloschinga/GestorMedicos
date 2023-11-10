@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Registro del Resultado del Procedimiento</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/clinica.css" rel="stylesheet" type="text/css"/>
+        <!-- Custom styles for this page -->
+
+
+        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link href="vendor/datatables/buttons.dataTables.min.css" rel="stylesheet" >
+        <link href="css/fixedHeader.dataTables.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Rich Text-->
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+        <link href="css/richtext.min.css" rel="stylesheet" type="text/css"/>
+
+
+    </head>
+
+    <body id="page-top">
+
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <!--<div id="sidebar"></div>-->
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+                    <div id="topbar"></div>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <br/>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">                            
+                                    <div class="card-body">
+                                        <center> <h5 class="card-title">FIRMA DEL PATÓLOGO POR EXAMEN DE LABORATORIO</h5></center>
+                                        <!--<center><div class="tituloTexto"></div></center>-->
+
+
+                                        <button id='btnAgregarParaLa' class='btn btn-primary btn-user'>Agregar Firma</button>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col">                                           
+                                                <div class="table-responsive">
+                                                    <table id="tblLaboratorio" class="table table-striped table-bordered" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Código</th>                                                                
+                                                                <th>Sec. Desde</th>
+                                                                <th>Sec. Hasta</th>
+                                                                <th>Patólogo</th>                                                                                                                             
+                                                                <th>Acción</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.container-fluid -->
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card">                            
+                                    <div class="card-body">
+                                        <center> <h5 class="card-title">PARAMETROS DEL SISTEMA</h5></center>
+                                        <!--<center><div class="tituloTexto"></div></center>-->
+
+                                        <hr/>                                                                            
+                                        <div class="row">
+                                            <div class="col-3">                                           
+                                                Dominio:
+                                            </div>
+                                            <div class="col">                                           
+                                                <input id="txtDominio" class="form-control form-control-user" />
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-3">                                           
+                                                Correo:
+                                            </div>
+                                            <div class="col">                                           
+                                                <input id="txtCorrreo" class="form-control form-control-user" />
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-3">                                           
+                                                Clave Correo:
+                                            </div>
+                                            <div class="col">                                           
+                                                <input id="txtClaveCorreo" class="form-control form-control-user" />
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-3">                                           
+                                                Asunto:
+                                            </div>
+                                            <div class="col">                                           
+                                                <input id="txtAsunto" class="form-control form-control-user" />
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-3">                                           
+                                                Cuerpo:
+                                            </div>
+                                            <div class="col">                                           
+                                                <textarea id="txtCuerpo" class="form-control form-control-user" >
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-3">                                           
+                                                Firma:
+                                            </div>
+                                            <div class="col">                                           
+                                                <textarea id="txtFirma" class="form-control form-control-user" >
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-3">                                           
+                                                Terminos:
+                                            </div>
+                                            <div class="col">                                           
+                                                <textarea id="txtTerminos" class="form-control form-control-user" >
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <button id='btnGrabarCambios' class='btn btn-primary btn-user'>Grabar Cambios</button>
+                                    </div>
+                                    <!-- /.container-fluid -->
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <div id="footer"></div>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Agregar Paramatro Modal-->
+        <div class="modal fade" id="EditarParametroModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="lblTituloEPM"></h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">Codigo:
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-user"
+                                       id="txtCodigo">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">De:                                    
+                                </div>                                
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-user"
+                                       id="txtDe">
+                            </div>
+                        </div>
+                        <div class="row">   
+                            <div class="col-2">
+                                <div class="form-group">A:
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-user"
+                                       id="txtA">
+                            </div>
+                        </div>    
+                        <div class="row">   
+                            <div class="col-2">
+                                <div class="form-group">Ruta:
+
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                <input type="file" class="form-control-user"
+                                       id="ajaxfile">
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" id="btnAceptarCambios">Aceptar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="../js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <script>
+            let table;
+            $(document).ready(function () {
+                $.getJSON("validarsesion", function (data) {
+                    if (data.resultado === "ok") {
+                        $('#topbar').load('topbar.html');
+                        $('#sidebar').load('sidebar.html');
+                        $('#footer').load('footer.html');
+                        let parametro = {accion: 'todos'};
+                        $.getJSON("../leerparametro", parametro, function (data) {
+
+                            for (var i = 0; i < data.length; i++) {
+                                console.log(data[i]);
+                                if (data[i].codiPara === 3)
+                                    $("#txtDominio").val(data[i].valuPara);
+                                if (data[i].codiPara === 4)
+                                    $("#txtCorrreo").val(data[i].valuPara);
+                                if (data[i].codiPara === 5)
+                                    $("#txtClaveCorreo").val(data[i].valuPara);
+                                if (data[i].codiPara === 6)
+                                    $("#txtAsunto").val(data[i].valuPara);
+                                if (data[i].codiPara === 7)
+                                    $("#txtCuerpo").val(data[i].valuPara);
+                                if (data[i].codiPara === 8)
+                                    $("#txtFirma").val(data[i].valuPara);
+                                if (data[i].codiPara === 9)
+                                    $("#txtTerminos").val(data[i].valuPara);
+                            }
+
+
+                        });
+                        table = $('#tblLaboratorio').DataTable({
+                            ajax: {
+                                url: 'paralacrud',
+                                type: 'POST',
+                                data: function (d) {
+                                    d.accion = 'listar';
+                                }
+                            },
+                            language: {
+                                decimal: "",
+                                emptyTable: "No hay datos",
+                                info: "Mostrando desde el _START_ al _END_ del total de _TOTAL_ registros",
+                                infoEmpty: "Mostrando desde el 0 al 0 del total de  0 registros",
+                                infoFiltered: "(Filtrados del total de _MAX_ registros)",
+                                infoPostFix: "",
+                                thousands: ",",
+                                lengthMenu: "Mostrar _MENU_ registros por página",
+                                loadingRecords: "Cargando...",
+                                processing: "Procesando...",
+                                search: "Buscar:",
+                                zeroRecords: "No se ha encontrado nada  atraves de ese filtrado.",
+                                paginate: {
+                                    first: "Primero",
+                                    last: "Última",
+                                    next: "Siguiente",
+                                    previous: "Anterior"
+                                },
+                                aria: {
+                                    sortAscending: ": activate to sort column ascending",
+                                    sortDescending: ": activate to sort column descending"
+                                }
+                            },
+                            columns: [
+                                {data: 'codiParaLa'},
+                                {data: 'secuInic'},
+                                {data: 'secuFin'},
+                                {data: 'ruta',
+                                    render: function (data, type, row, meta) {
+                                        return "<img id='codiParaLa' src='../firmas\\" + data + "' width=100>";
+                                    }
+                                },
+                                {data: 'codiParaLa',
+                                    render: function (data, type, row, meta) {
+                                        return "<button onclick='modificarParaLa(" + data + ")'  class='btn btn-primary btn-user'>Modificar Firma</button>";
+                                    }
+                                }
+                            ]
+                        });
+                        $("#btnIngresar").click(function () {
+                            $("#EditarParametroModal").modal("show");
+                            $("#lblTituloEPM").text("Agregar Registro");
+                        });
+                        $("#btnAceptarCambios").click(function () {
+
+                            let codigo = $("#txtCodigo").val();
+                            let de = $("#txtDe").val();
+                            let a = $("#txtA").val();
+                            var ruta = $("#ajaxfile").val().replace(/C:\\fakepath\\/i, '');
+                            uploadFile();
+                            if ($("#lblTituloEPM").text() === "Agregar Registro") {
+                                let parametro = {codigo: 0, de: de, a: a, ruta: ruta, accion: "agregar"};
+                                $.getJSON("paralacrud", parametro, function (data) {
+                                    if (data.resultado === "ok") {
+                                        $("#EditarParametroModal").modal("hide");
+                                        table.ajax.reload();
+                                    } else {
+                                        alert("No se pudo realizar los cambios");
+                                    }
+                                });
+                            } else {
+                                let parametro = {codigo: codigo, de: de, a: a, ruta: ruta, accion: "editar"};
+                                $.getJSON("paralacrud", parametro, function (data) {
+                                    if (data.resultado === "ok") {
+                                        $("#EditarParametroModal").modal("hide");
+                                        table.ajax.reload();
+                                    } else {
+                                        alert("No se pudo realizar los cambios");
+                                    }
+                                });
+                            }
+
+
+                        });
+                        $("#btnAgregarParaLa").click(function () {
+                            $("#txtCodigo").attr('disabled', 'disabled');
+                            $("#txtCodigo").val("AUTONUMERICO");
+                            $("#txtDe").val("");
+                            $("#txtA").val("");
+                            $("#EditarParametroModal").modal("show");
+                            $("#lblTituloEPM").text("Agregar Registro");
+                        });
+                        $("#btnGrabarCambios").click(function () {
+                            let dominio = $("#txtDominio").val();
+                            let correo = $("#txtCorrreo").val();
+                            let clave = $("#txtClaveCorreo").val();
+                            let asunto = $("#txtAsunto").val();
+                            let cuerpo = $("#txtCuerpo").val();
+                            let firma = $("#txtFirma").val();
+                            let terminos = $("#txtTerminos").val();
+                            let parametro = {dominio: dominio, correo: correo, clave: clave, asunto: asunto, cuerpo: cuerpo, firma: firma, terminos: terminos};
+                            $.getJSON("../guardarparametro", parametro, function (data) {
+                                if (data.resultado === "ok")
+                                    alert("Grabo correctamente");
+                                else
+                                    alert("Error al grabar");
+                            });
+                        });
+                    }
+                });
+                async function uploadFile() {
+                    let formData = new FormData();
+                    formData.append("file", ajaxfile.files[0]);
+                    const response = await fetch('../fileupload', {
+                        method: "POST",
+                        body: formData
+                    }); /*.then(function (response) {
+                     console.log("response:"+response);
+                     }).catch(function (error) {
+                     console.log("error:"+error);
+                     });*/
+                    if (!response.ok) {
+                        alert("No se pudo agregar la imagen");
+                    }
+                }
+            });
+        </script>
+
+
+    </body>
+
+</html>

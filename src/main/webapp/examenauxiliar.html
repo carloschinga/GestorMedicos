@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Registro del Resultado del Examen Auxiliar</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/clinica.css" rel="stylesheet" type="text/css"/>
+        <!-- Custom styles for this page -->
+
+
+        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link href="vendor/datatables/buttons.dataTables.min.css" rel="stylesheet" >
+        <link href="css/fixedHeader.dataTables.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Rich Text-->
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+        <link href="css/richtext.min.css" rel="stylesheet" type="text/css"/>
+
+
+    </head>
+
+    <body id="page-top">
+
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <!--<div id="sidebar"></div>-->
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+                    <div id="topbar"></div>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <br/>
+                        <div class="card">                            
+                            <div class="card-body">
+                                <center> <h5 class="card-title">REGISTRO DEL RESULTADO DEL EXAMEN AUXILIAR</h5></center>
+                                <!--<center><div class="tituloTexto"></div></center>-->
+
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            Fecha Inicio:<input id="fechaInicio" type="date" class="form-control form-control-user">
+                                        </div>
+                                        <div class="col-2">
+                                            Fecha Fin:<input id="fechaFin" type="date" class="form-control form-control-user">
+                                        </div>                                        
+                                        <div class="col-2"><div class="row">Buscar:</div>
+                                            <div class="row">
+                                                <div  class="dt-buttons">
+                                                    <button id="btnBuscar" class="dt-button buttons-copy buttons-html5">Buscar</button>
+                                                </div></div>
+                                        </div>
+                                    </div>                                       
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col">     
+                                            <input type="hidden" id="invnumseleccionado" value="1"/>                                            
+                                            <div class="table-responsive">
+                                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sec.</th>                                                            
+                                                            <th>Item</th>                                                            
+                                                            <th>Historia</th>
+                                                            <th>Paciente</th>                                                            
+                                                            <th>Plan</th>
+                                                            <th>Examen</th>
+                                                            <th>Fecha</th>                                                                                                                                                   
+                                                            <th>Acción</th>                                                                                        
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.container-fluid -->
+                        </div>
+                        <br/>
+                    </div>
+                    <!-- End of Main Content -->
+
+                    <!-- Footer -->
+                    <div id="footer"></div>
+                    <!-- End of Footer -->
+
+                </div>
+                <!-- End of Content Wrapper -->
+
+            </div>
+            <!-- End of Page Wrapper -->
+        </div>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Rich Text Modal-->
+        <div class="modal fade" id="RichText" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registre el Resultado de su Procedimiento</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="page-wrapper box-content">
+
+                            <input id="txtInvnum" type="hidden"/>
+                            <input id="txtNumitm" type="hidden"/>
+                            <input id="txtTarcod" type="hidden"/>
+                            <textarea class="contenido" name="example">                                
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" id="btnGrabarRTF">Grabar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Aprobar Resultado Modal-->
+        <div class="modal fade" id="aprobarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Realmente desea Aprobar el Resultado?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3">Secuencia:</div><div class="col-lg-6 col-md-6" ><input type="text"  id="secunciaAprob" disabled=disabled></div>                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3">Item:</div><div class="col-lg-6 col-md-6"><input type="text"  id="itemAprob" disabled=disabled></div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col">
+                                Al aprobar el resultado no podrá realizar cambios y se activará la opción de descargar Resultado. ¿Realmente desea aprobar el resultado?
+                            </div>               </div>                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" id="btnGrabarAprobacion">Aprobar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Realmente desea Salir?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Seleccione "Cerrar sesión"  si está listo para finalizar su sesión actual.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" id="salir">Salir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="vendor/datatables/dataTables.buttons.min.js" ></script>
+        <script src="vendor/datatables/jszip.min.js" ></script>
+        <script src="vendor/datatables/pdfmake.min.js" ></script>
+        <script src="vendor/datatables/vfs_fonts.js" ></script>
+        <script src="vendor/datatables/buttons.html5.min.js" ></script>
+        <script src="vendor/datatables/buttons.print.min.js" ></script>
+
+        <script src="js/dataTables.fixedHeader.min.js" type="text/javascript"></script>
+        <!-- moment js -->
+        <script src="js/moment.min.js" ></script>
+
+        <!-- rtf js -->
+        <script src="js/jquery.richtext.min.js" type="text/javascript"></script><!-- moment js -->
+        <script src="js/html-to-rtf-browser.min.js" type="text/javascript"></script>
+
+        <script>
+            $(document).ready(function () {
+
+
+                let table;
+                $("#fechaInicio").val(moment().format('YYYY-MM-DD'));
+                $("#fechaFin").val(moment().format('YYYY-MM-DD'));
+                $.getJSON("validarsesion", function (data) {
+                    if (data.resultado === "ok") {
+                        $('#topbar').load('topbar.html');
+                        $('#sidebar').load('sidebar.html');
+                        $('#footer').load('footer.html');
+
+                        table = $('#example').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                'copy', 'excel', 'print'
+                            ],
+                            fixedHeader: true,
+                            paging: false,
+                            ajax: {
+                                url: 'listaexamenauxiliar',
+                                type: 'POST',
+                                data: function (d) {
+                                    d.fechaInicio = $("#fechaInicio").val(), //$("#fechaInicio").val(),
+                                            d.fechaFin = $("#fechaFin").val();
+                                }
+                            },
+                            language: {
+                                decimal: "",
+                                emptyTable: "No hay datos",
+                                info: "Mostrando desde el _START_ al _END_ del total de _TOTAL_ registros",
+                                infoEmpty: "Mostrando desde el 0 al 0 del total de  0 registros",
+                                infoFiltered: "(Filtrados del total de _MAX_ registros)",
+                                infoPostFix: "",
+                                thousands: ",",
+                                lengthMenu: "Mostrar _MENU_ registros por página",
+                                loadingRecords: "Cargando...",
+                                processing: "Procesando...",
+                                search: "Buscar:",
+                                zeroRecords: "No se ha encontrado nada  atraves de ese filtrado.",
+                                paginate: {
+                                    first: "Primero",
+                                    last: "Última",
+                                    next: "Siguiente",
+                                    previous: "Anterior"
+                                },
+                                aria: {
+                                    sortAscending: ": activate to sort column ascending",
+                                    sortDescending: ": activate to sort column descending"
+                                }
+                            },
+                            columns: [
+                                {data: 'secuencia'},
+                                {data: 'numitm'},
+                                {data: 'historia'},
+                                {data: 'paciente'},
+                                {data: 'tipoPlan'},
+                                {data: 'examen'},
+                                {data: 'fechaOrden',
+                                    render: function (data, type, row, meta) {
+                                        if (data === undefined)
+                                            return "";
+                                        else
+                                            return moment(data).format("DD/MM/yyyy");
+                                    }
+                                },
+
+                                {data: 'usecodApr',
+                                    render: function (data, type, row, meta) {
+
+                                        if (data === undefined) {
+                                            let objselec=null; 
+                                            if (row.resexahml === undefined) {
+                                                objselec = {invnum: row.secuencia, numitm: row.numitm, tarcod: row.tarcod, resexahml: row.resexa};
+                                            } else {
+                                                objselec = {invnum: row.secuencia, numitm: row.numitm, tarcod: row.tarcod, resexahml: row.resexahml};
+                                            }
+                                            let myJSON = JSON.stringify(objselec);
+                                            return "<button class='btn btn-primary btn-user' data-toggle='tooltip' title='Registrar / Modificar ' onclick='editar(" + myJSON + ")'><i class='fas fa-edit'></i></button><button class='btn btn-primary btn-user' data-toggle='tooltip' title='Aprobar Resultado' onclick='aprobar(" + myJSON + ")'><i class='fas fa-check'></i></button>";
+
+                                        } else {
+                                            let objselecPdf = {invnum: row.secuencia, numitm: row.numitm, medcod: row.medcod};
+                                            let myJSONPdf = JSON.stringify(objselecPdf);
+                                            return "<button  class='btn btn-primary btn-user' data-toggle='tooltip' title='Descargar Resultado' onclick='descargar(" + myJSONPdf + ")'><i class='fas fa-file-pdf'></i></button>";
+
+                                        }
+
+                                        /*
+                                         if (data === undefined) {                                                
+                                         let objselec = {invnum: row.secuencia, numitm: row.numitm, exacod: row.exacod, resexa: convertToPlain(row.resexa)};
+                                         let myJSON = JSON.stringify(objselec);
+                                         return "<button onclick='editar(" + myJSON + ")'>Editar</button>";
+                                         } else {                                            
+                                         let objselec = {invnum: row.secuencia, numitm: row.numitm, exacod: row.exacod, resexa: row.resexahtml};
+                                         let myJSON = JSON.stringify(objselec);
+                                         
+                                         let objselecPdf = {invnum: row.secuencia, numitm: row.numitm, medcod: row.medcod};
+                                         let myJSONPdf = JSON.stringify(objselecPdf);
+                                         return "<button onclick='editar(" + myJSON + ")'>Editar</button>\n\
+                                         <button onclick='descargar(" + myJSONPdf + ")'>Descargar</button>";
+                                         
+                                         }*/
+                                    }
+                                }
+
+                            ]
+                        });
+
+                        let parametro = {accion: 1};
+
+
+                        $('.contenido').richText({
+                            table: false,
+                            fileUpload: false,
+                            imageUpload: false,
+                            urls: false,
+                            videoEmbed: false,
+                            fontColor: false,
+                            backgroundColor: false,
+                            fontSize: false,
+                            heading: false,
+                            code: false
+                        });
+                    } else {
+                        $(location).attr('href', "index.html");
+                    }
+                });
+
+                $("#btnGrabarAprobacion").click(function () {
+                    let invnum = $("#txtInvnum").val();
+                    let numitm = $("#txtNumitm").val();
+                    let parametro = {invnum: invnum, numitm: numitm};
+                    $.getJSON("grabaraprobea", parametro, function (data) {
+                        if (data.resultado === "ok") {
+                            table.ajax.reload( );
+                            $("#aprobarModal").modal("hide");
+                        } else {
+                            alert("Problemas al Grabar la Operación");
+                        }
+
+                    });
+
+                });
+
+                $("#btnBuscar").click(function () {
+                    table.ajax.reload( );
+                });
+
+                $("#salir").click(function () {
+                    $.getJSON("cerrarsesion", function (data) {});
+                    $(location).attr('href', "index.html");
+                });
+
+
+
+                $("#btnGrabarRTF").click(function () {
+                    let htmlContent = $('.contenido').val();
+                    let htmlToRtfLocal = new window.htmlToRtf();
+                    let rtfContent = htmlToRtfLocal.convertHtmlToRtf(htmlContent);
+
+                    let invnum = $("#txtInvnum").val();
+                    let numitm = $("#txtNumitm").val();
+                    let exacod = $("#txtTarcod").val();
+
+                    // alert(htmlContent);
+                    // alert(rtfContent);
+                    let parametro = {invnum: invnum, numitm: numitm, exacod: exacod, htmlContent: htmlContent, rtfContent: rtfContent};
+                    $.getJSON("grabarexamenauxiliar", parametro, function (data) {
+                        if (data.resultado === "ok") {
+                            table.ajax.reload( );
+                            $("#RichText").modal("hide");
+                            //alert("grabo correctamente");
+                        } else {
+                            alert("Error, NO GRABÓ");
+                        }
+                    });
+
+                });
+            });
+            function aprobar(id) {
+
+                $("#secunciaAprob").val(id.invnum);
+                $("#itemAprob").val(id.numitm);
+                $("#aprobarModal").modal("show");
+            }
+            function editar(id) {
+                //console.log(id.resexa);
+                $("#txtInvnum").val(id.invnum);
+                $("#txtNumitm").val(id.numitm);
+                $("#txtTarcod").val(id.exacod);
+
+                if (id.resexa !== undefined) {
+                    $('.richText-editor').trigger('setContent', convertToPlain(id.resexa));
+                    //console.log("con contenido");
+                } else {
+                    $('.richText-editor').trigger('setContent', '');
+                    //console.log("sin contenido");
+                }
+                $("#RichText").modal("show");
+
+            }
+            function descargar(id) {
+                window.open("reporteresultadoea?invnum=" + id.invnum + "&numitm=" + id.numitm + "&medcod=" + id.medcod, "_blank");
+            }
+            function format(d) {
+                let resultado = '';
+                let data = $.parseJSON(d.detalle);
+                resultado += "<tr><th>Orden</th><th>Origen</th><th>Secuencia</th><th>Descripcion</th><th>Fecha Cita/Muestra</th><th>Atendido</th></tr>";
+                $.each(data.datos, function (i, item) {
+                    if (item.atendido === 1)
+                        atendido = "SI";
+                    else
+                        atendido = "NO";
+
+                    let fecha;
+                    if (item.fechaCitaOToma === "1900-01-01T00:00:00")
+                        fecha = "";
+                    else
+                        fecha = moment(item.fechaCitaOToma).format("DD/MM/yyyy hh:mm:ss A");
+
+                    resultado += "<tr><td>" + item.orden + "</td><td>" + item.oricod + "</td><td>" + item.invnum_o + "</td><td>" + item.tardes + "</td><td>" + fecha + "</td><td>" + atendido + "</td></tr>";
+                });
+                resultado = "<table class='table table-striped table-bordered'>" + resultado + "</table>";
+                return (resultado);
+            }
+
+
+
+// Función para encontrar secuencias de caracteres especiales
+            function parseSpecial(rtf) {
+                // Encontrar todas las secuencias \'xx
+                let matches = rtf.match(/\\'[a-f0-9]{2}/g);
+                // Eliminar duplicados en el arreglo
+                let special = [... new Set(matches)];
+                // Recorrer para remplazar
+                special.forEach(hex => {
+                    // Convertir de hexadecimal a decimal, eliminando primero la marca \'
+                    let dec = parseInt(hex.replace("\\'", ''), 16);
+                    // Remplazar secuencia por caracter correspondiente
+                    rtf = rtf.replaceAll(hex, String.fromCharCode(dec));
+                });
+                return rtf;
+            }
+            function convertToPlain(rtf) {
+                // Interpretar contenido original
+
+                rtf = rtf.replace(/\\par[d]?/g, "");
+                rtf = rtf.replace(/\{\*?\\[^{}]+}|[{}]|\\\n?[A-Za-z]+\n?(?:-?\d+)?[ ]?/g, "").trim();
+                // Buscar secuencias de caracteres especiales y devolver
+                return parseSpecial(rtf);
+            }
+
+
+            /*function mostrarDetalle(invnum) {
+             $(document).ready(function () {
+             $("#invnumseleccionado").val(invnum);
+             table1.ajax.reload( );
+             $("#detalleModal").modal("show");
+             });
+             
+             }*/
+
+
+
+        </script>
+
+
+    </body>
+
+</html>

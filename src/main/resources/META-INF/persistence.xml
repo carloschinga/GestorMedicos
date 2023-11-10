@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.clinicasb.persis" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.clinicasb.dto.ViewTrazabilidadCitaMedica</class>
+    <class>com.clinicasb.dto.ViewTrazabilidadLa</class>
+    <class>com.clinicasb.dto.ViewProgramacionMedicoServicio</class>
+    <class>com.clinicasb.dto.ViewProgramacionMedicoMedico</class>
+    <class>com.clinicasb.dto.Usuario</class>
+    <class>com.clinicasb.dto.ViewProgramacionMedicoDeta</class>
+    <class>com.clinicasb.dto.ViewWebUsuarios</class>
+    <class>com.clinicasb.dto.WebMenuPermiso</class>
+    <class>com.clinicasb.dto.Usuarios</class>
+    <class>com.clinicasb.dto.WebMenu</class>
+    <class>com.clinicasb.dto.WebMenuRol</class>
+    <class>com.clinicasb.dto.ViewWebMenuDeta</class>
+    <class>com.clinicasb.dto.ViewWebMenuDetaRol</class>
+    <class>com.clinicasb.dto.ViewWebPaquetesDetalle</class>
+    <class>com.clinicasb.dto.ViewWebPaquetesCabecera</class>
+    <class>com.clinicasb.dto.ViewProduccionMedicos</class>
+    <class>com.clinicasb.dto.ProcedimientosResultados</class>
+    <class>com.clinicasb.dto.Medicos</class>
+    <class>com.clinicasb.dto.ViewTrazabilidadEa</class>
+    <class>com.clinicasb.dto.EaResultados</class>
+    <class>com.clinicasb.dto.ViewExamenAuxiliar</class>
+    <class>com.clinicasb.dto.ProcedimientosDetalle</class>
+    <class>com.clinicasb.dto.EaOrdenesDetalle</class>
+    <class>com.clinicasb.dto.EaOrdenesCabecera</class>
+    <class>com.clinicasb.dto.ProcedimientosCabecera</class>
+    <class>com.clinicasb.dto.ViewTrazabilidadProcedimiento</class>
+    <class>com.clinicasb.dto.ProcedimientosResultadosArch</class>
+    <class>com.clinicasb.dto.Tarifario</class>
+    <class>com.clinicasb.dto.ViewProcedimientoResultadoMedico</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://192.168.0.29\SERVILOLCLI20:1433;databaseName=LOLCLI9000"/>
+      <property name="javax.persistence.jdbc.user" value="applolcli"/>
+      <property name="javax.persistence.jdbc.password" value="Lolcliapp23"/>
+      <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="eclipselink.cache.shared.default" value="false"/>
+    </properties>
+  </persistence-unit>
+</persistence>

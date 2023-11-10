@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Gestor Médico - Inicio</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/clinica.css" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body class="fondoplomo">
+
+        <div class="container">
+
+            <!-- Outer Row -->
+            <div class="row justify-content-center">
+
+                <div class="col-xl-10 col-lg-12 col-md-9">
+
+                    <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-lg-6 ">
+                                    <br/><br/>
+                                    <div >
+                                        <img src="img/logo.png"  class="img-fluid"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="p-5">
+                                        <div class="text-center"><img src="img/logo2.png" alt=""/></div> <br/>
+                                        <div class="text-center">
+
+                                            <h1 class="tituloModulo">Gestor Médico</h1>
+                                        </div>
+                                        <br/>
+                                        <form class="user">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="txtUsuario" 
+                                                       placeholder="Ingrese su usuario..." value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user"
+                                                       id="txtClave" placeholder="Clave" value="">
+                                            </div>                                                  
+                                            <a id="btnIngresar" class="btn btn-primary btn-user ">
+                                                Inicio de Sesión
+                                            </a>
+                                            <div id="loading" style="display:none" >
+                                                <center><img src="img/loader.gif" alt="cargando"/><br/>Un momento, por favor...</center>
+                                            </div>
+                                        </form>           
+                                        <br/>
+                                        <div class="text-center">
+                                            <div id="alerta" class="alert alert-danger" style="display:none" role="alert">¡El usuario o la clave es erronea!
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>        
+        <script>
+            $(document).ready(function () {
+                $("#btnIngresar").click(function () {                                        
+                    $("#btnIngresar").css("display", "none");                    
+                    $("#loading").css("display", "block");                    
+                    let logi = $("#txtUsuario").val();
+                    let pass = $("#txtClave").val();
+                    let parametro = {logi: logi, pass: pass};
+                    $.getJSON("validar", parametro, function (data) {
+                        if (data.resultado === "ok") {
+                            console.log(data);
+                            parametro = {logi: data.user, nombre: data.name, nivel: data.nivel, codi: data.codi, medcod: data.medcod};
+                            $.getJSON("iniciarsesion", parametro, function (data) {
+
+                            });
+                            $(location).attr('href', "principal.html");
+                        } else {
+                            $("#btnIngresar").css("display", "block");                    
+                            $("#loading").css("display", "none");
+                            $("#alerta").css("display", "block");                            
+                            setTimeout(function () {
+                                $("#alerta").fadeOut(2000);
+                            }, 2000);
+                        }
+                    });
+                });
+
+
+                $('#txtClave').keypress(function (e) {
+                    if (e.which === 13) {
+                        //e.preventDefault();
+                        $("#btnIngresar").trigger("click");
+                    }
+                });
+            });
+        </script>
+    </body>
+
+</html>

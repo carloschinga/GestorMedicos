@@ -1,0 +1,46 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="principal.html">
+
+        <img src="img/logo3.jpg"   class="img-responsive" width="160" alt=""/>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="principal.html">
+            <!--<i class="fas fa-fw fa-tachometer-alt"></i>-->
+            <span>Inicio</span></a>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+
+    <div id="menudinamico"></div>
+
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+</ul>
+<script>
+    $(document).ready(function () {
+        $.getJSON("validarsesion", function (data) {
+            if (data.resultado === "ok") {
+                //if (data.nivel !== "1") {
+          
+                $.get("menu", function (data) {
+                    $("#menudinamico").append(data);
+                });
+
+                /*$("#AnalisisEA").remove();
+                 $("#AnalisisLA").remove();                    */
+                //}
+            }
+        });
+    });
+</script>

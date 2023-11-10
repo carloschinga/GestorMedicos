@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ResultadoProcedimiento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed26d230-bd29-496a-988a-00a7d8777165">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter1.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="215"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="774"/>
+	<parameter name="numitm" class="java.lang.Integer"/>
+	<parameter name="invnum" class="java.lang.Integer"/>
+	<parameter name="rutaimagen" class="java.lang.String"/>
+	<parameter name="rutalogo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT        proca.invnum AS secuencia,prode.numitm, proca.cuscod, pacdoc,proca.cusnam AS Paciente, CONVERT(DATE,paci.pacfen) as FechaNaci,
+DATEDIFF(year,paci.pacfen,GETDATE()) as edad, case proca.sexcod when 'FE' then 'FEMENINO' else 'MASCULINO' end as sexcod,pls.plndes AS TipoPlan,  
+prode.exacod, prode.exades, proca.datord AS FechaOrden, CONVERT(DATE, proca.datord) AS FechaFiltro, 
+                         prores.resexa, prode.medcod, resexa as resultado,prores.resexahtml
+FROM            ea_ordenes_cabecera AS proca 
+INNER JOIN		dbo.pacientes as paci on proca.cuscod=paci.pachis   
+INNER JOIN		dbo.ea_ordenes_detalle AS prode ON proca.invnum = prode.invnum and    proca.invnum= $P{invnum}  and prode.numitm=  $P{numitm} 
+INNER JOIN		dbo.planes_seguro AS pls ON pls.plnnum = proca.plnnum 
+LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prode.numitm = prores.numitm AND prode.exacod = prores.exacod]]>
+	</queryString>
+	<field name="secuencia" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="secuencia"/>
+		<property name="com.jaspersoft.studio.field.label" value="secuencia"/>
+	</field>
+	<field name="numitm" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="numitm"/>
+		<property name="com.jaspersoft.studio.field.label" value="numitm"/>
+	</field>
+	<field name="cuscod" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cuscod"/>
+		<property name="com.jaspersoft.studio.field.label" value="cuscod"/>
+	</field>
+	<field name="pacdoc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pacdoc"/>
+		<property name="com.jaspersoft.studio.field.label" value="pacdoc"/>
+	</field>
+	<field name="Paciente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Paciente"/>
+		<property name="com.jaspersoft.studio.field.label" value="Paciente"/>
+	</field>
+	<field name="FechaNaci" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="FechaNaci"/>
+		<property name="com.jaspersoft.studio.field.label" value="FechaNaci"/>
+	</field>
+	<field name="edad" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="edad"/>
+		<property name="com.jaspersoft.studio.field.label" value="edad"/>
+	</field>
+	<field name="sexcod" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sexcod"/>
+		<property name="com.jaspersoft.studio.field.label" value="sexcod"/>
+	</field>
+	<field name="TipoPlan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TipoPlan"/>
+		<property name="com.jaspersoft.studio.field.label" value="TipoPlan"/>
+	</field>
+	<field name="exacod" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="exacod"/>
+		<property name="com.jaspersoft.studio.field.label" value="exacod"/>
+	</field>
+	<field name="exades" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="exades"/>
+		<property name="com.jaspersoft.studio.field.label" value="exades"/>
+	</field>
+	<field name="FechaOrden" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="FechaOrden"/>
+		<property name="com.jaspersoft.studio.field.label" value="FechaOrden"/>
+	</field>
+	<field name="FechaFiltro" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="FechaFiltro"/>
+		<property name="com.jaspersoft.studio.field.label" value="FechaFiltro"/>
+	</field>
+	<field name="resexa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="resexa"/>
+		<property name="com.jaspersoft.studio.field.label" value="resexa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ea_resultados"/>
+	</field>
+	<field name="medcod" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="medcod"/>
+		<property name="com.jaspersoft.studio.field.label" value="medcod"/>
+	</field>
+	<field name="resultado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="resultado"/>
+		<property name="com.jaspersoft.studio.field.label" value="resultado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ea_resultados"/>
+	</field>
+	<field name="resexahtml" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="resexahtml"/>
+		<property name="com.jaspersoft.studio.field.label" value="resexahtml"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ea_resultados"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="184" splitType="Stretch">
+			<staticText>
+				<reportElement x="25" y="69" width="80" height="12" forecolor="#002F62" uuid="55713a09-9c2b-426d-adce-d44c10f1b9c8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N° DE SOLICITUD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="111" width="80" height="12" forecolor="#002F62" uuid="ba6a2bcc-84be-40fc-9b26-09fa1d93a0a5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DNI:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="125" width="80" height="12" forecolor="#002F62" uuid="340033c2-c85f-49cd-a0bd-a34ea81641fc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PACIENTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="83" width="80" height="12" forecolor="#002F62" uuid="7f2abb8c-5cfa-4a27-b059-c3a2234f99cf">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F. DE NACIMIENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="97" width="80" height="12" forecolor="#002F62" uuid="12385032-ffa6-498e-a0e1-a8711d8cca93">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="139" width="80" height="12" forecolor="#002F62" uuid="4602df63-9e30-4cdf-8b1b-a451c4992234">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA SOLICITUD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="83" width="80" height="12" forecolor="#002F62" uuid="0ba8693e-5b97-462e-93c0-d5b028f62381">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N° H.C.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="97" width="80" height="12" forecolor="#002F62" uuid="2ce0023e-3050-4808-b606-65fe6a464cfb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEXO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="69" width="143" height="12" uuid="a9a389e5-ffad-47a7-a003-c44a968dc7aa"/>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{secuencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="111" width="143" height="12" uuid="504b8a3f-c969-416d-8c13-6a5b757e4381">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pacdoc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="125" width="143" height="12" uuid="a15ccf96-47ed-4771-a270-a9c952d4d493">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Paciente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="139" width="143" height="12" uuid="3124ef2c-5aab-430d-85eb-5c9936668eef">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{FechaFiltro})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="97" width="143" height="12" uuid="633c5e74-e69f-475d-b003-9863f7e7eafe">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="83" width="142" height="12" uuid="8d95b53b-ae75-43f6-9c33-f7ee1ead5e2a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{FechaNaci})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="388" y="83" width="143" height="12" uuid="e870f607-3052-4e6c-aa62-64c9b203e372">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuscod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="388" y="97" width="143" height="12" uuid="a3c7c859-37d3-4143-a726-f3f08da04039">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sexcod}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="57" width="553" height="1" forecolor="#002F62" uuid="09c8aa90-5cd9-43d0-bb02-3f1e65bb60bf">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="303" y="69" width="80" height="12" forecolor="#002F62" uuid="fada1741-c21b-4d07-a31c-139460446d49">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA IMPRESION:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="69" width="143" height="12" uuid="e4c1e062-abb4-4620-9b1a-7b842c3beb3f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new Date()) + " " + new SimpleDateFormat("HH:mm:ss").format(new Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="13" y="64" width="531" height="1" forecolor="#000000" uuid="6182db12-cd44-4b43-8dfc-534c666e7c9a"/>
+			</line>
+			<line>
+				<reportElement x="0" y="171" width="553" height="1" forecolor="#002F62" uuid="47ce99d0-d9ba-4251-aa23-9437e1867f91">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="12" y="160" width="531" height="1" forecolor="#000000" uuid="2fd1de73-9946-4946-947f-6f9ff168217e"/>
+			</line>
+			<line>
+				<reportElement x="12" y="64" width="1" height="96" uuid="a43eb830-13f4-48da-afd6-dcd6ebc92062"/>
+			</line>
+			<line>
+				<reportElement x="544" y="64" width="1" height="96" uuid="82b402a8-343e-42d7-920f-87a881aa835f"/>
+			</line>
+			<image>
+				<reportElement x="0" y="0" width="210" height="50" uuid="f15582a1-9f48-4338-83b8-3df13fe88330"/>
+				<imageExpression><![CDATA[$P{rutalogo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="303" y="111" width="80" height="12" forecolor="#002F62" uuid="6ca04188-4221-452c-9841-0fc05846a5ed">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXAMEN AUXILIAR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="303" y="127" width="228" height="12" uuid="799269c5-28f8-4521-9389-316bf07b1216"/>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{exades}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="6" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="6" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="406" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="2" width="479" height="378" uuid="82360767-fda4-498a-965b-91156acbf577">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea187cff-e015-4827-80e5-0dbfbee0de2b"/>
+				</reportElement>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA[$F{resexahtml}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="121" splitType="Stretch">
+			<image>
+				<reportElement x="360" y="10" width="180" height="97" uuid="0e851329-1720-4c93-8797-265b4e82a196"/>
+				<imageExpression><![CDATA[$P{rutaimagen}]]></imageExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>
