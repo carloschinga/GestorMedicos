@@ -4,6 +4,7 @@
  */
 package com.clinicasb.servlet;
 
+import com.clinicasb.util.Configuracion;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -36,7 +37,16 @@ public class Config extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String resultado = "";
 
-            Properties properties = new Properties();
+            try {
+                
+                Configuracion configuracion = new Configuracion(getServletContext());
+                String nombreunidad = configuracion.getValor("pdf.directorio");
+                String directoriodeFirmas = configuracion.getValor("fima.directorio");
+                resultado = "{\"resultado\":\"ok\",\"rutapdf\":\"" + nombreunidad+ "\",\"directoriofirmas\":\""+directoriodeFirmas+"\" }";
+            } catch (Exception ex) {
+                resultado = "{\"resultado\":\"error\",\"mensaje\":\"" + ex.getMessage() + "\"}";
+            }
+            /*Properties properties = new Properties();
             try (InputStream input = getServletContext().getResourceAsStream("/WEB-INF/classes/config.properties")) {
                 if (input == null) {
                     System.out.println("No se puede encontrar el archivo config.properties");
@@ -46,7 +56,7 @@ public class Config extends HttpServlet {
                 resultado = "{\"resultado\":\"ok\",\"rutapdf\":\"" + properties.getProperty("pdf.directorio") + "\",\"directoriofirmas\":\""+properties.getProperty("fima.directorio")+"\" }";
             } catch (IOException ex) {
                 resultado = "{\"resultado\":\"error\"}";
-            }
+            }*/
 
             out.println(resultado);
         }

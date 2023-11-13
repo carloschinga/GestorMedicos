@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.clinicasb.util.Cripto;
 import static com.clinicasb.util.Cripto.getSHA;
+import com.clinicasb.util.Token;
 
 /**
  *
@@ -38,6 +39,9 @@ public class Validar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            String tokenc = "";
+            String token = request.getParameter("token");
+            tokenc = Token.generateToken(token);
             String resultado="";
             String user = request.getParameter("logi");
             String pass = request.getParameter("pass");
@@ -52,7 +56,7 @@ public class Validar extends HttpServlet {
                     MedicosJpaController medicoDAO= new MedicosJpaController();
                     Medicos medico= medicoDAO.getMedicoXUsecodx(u.getUsecod());
                     if(medico!=null){
-                        resultado="{\"resultado\":\"ok\",\"codi\":\""+u.getUsecod()+"\",\"user\":\"" + u.getUseusr()+ "\",\"name\":\"" + u.getUsenam() + "\",\"nivel\":\""+u.getAdmiweb()+"\",\"medcod\":\""+ medico.getMedcod()+"\"}";
+                        resultado="{\"resultado\":\"ok\",\"codi\":\""+u.getUsecod()+"\",\"user\":\"" + u.getUseusr()+ "\",\"name\":\"" + u.getUsenam() + "\",\"nivel\":\""+u.getAdmiweb()+"\",\"medcod\":\""+ medico.getMedcod()+"\",\"token\":\""+ tokenc+"\",\"logi\":\""+ user+"\"}";
                     }
                     else{
                         resultado="{\"resultado\":\"error\",\"mensaje\":\"El usuario NO tiene un código de Médico asociado\"}";

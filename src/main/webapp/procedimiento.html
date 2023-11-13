@@ -113,11 +113,9 @@
                         <br/>
                     </div>
                     <!-- End of Main Content -->
-
                     <!-- Footer -->
                     <div id="footer"></div>
                     <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
 
@@ -259,26 +257,20 @@
 
         <script>
             $(document).ready(function () {
-
-
                 let table;
                 $("#fechaInicio").val(moment().format('YYYY-MM-DD'));
-                $("#fechaFin").val(moment().format('YYYY-MM-DD'));
-                //var iniDate = new Date().toISOString().split('T')[0];
-
+                $("#fechaFin").val(moment().format('YYYY-MM-DD'));                
+                const tokeValue = getCookie("token");
+                //console.log(tokeValue);
                 let iniDate = moment().format('YYYY-MM-DD');
                 let maxDate = moment().add(31, 'days').format('YYYY-MM-DD');
                 $("#fechaFin").attr('min', iniDate);
                 $("#fechaFin").attr('max', maxDate);
-
-
-                //$("#fechaFin").val(moment().format('YYYY-MM-DD'));
                 $.getJSON("validarsesion", function (data) {
                     if (data.resultado === "ok") {
                         $('#topbar').load('topbar.html');
                         $('#sidebar').load('sidebar.html');
                         $('#footer').load('footer.html');
-
                         table = $('#example').DataTable({
                             dom: 'Bfrtip',
                             buttons: [
@@ -366,17 +358,12 @@
                                             let objselecPdf = {invnum: row.secuencia, numitm: row.numitm, medcod: row.medcod, pachis: row.pachis, namfile: row.namfile};
                                             let myJSONPdf = JSON.stringify(objselecPdf);
                                             return "<button  class='btn btn-primary btn-user' data-toggle='tooltip' title='Descargar Resultado' onclick='descargar(" + myJSONPdf + ")'><i class='fas fa-file-pdf'></i></button>";
-
                                         }
                                     }
                                 }
-
                             ]
                         });
-
                         let parametro = {accion: 1};
-
-
                         $('.contenido').richText({
                             table: false,
                             fileUpload: false,
@@ -392,33 +379,26 @@
                             centerAlign: false,
                             rightAlign: false,
                             justify: false
-
                         });
                     } else {
                         $(location).attr('href', "index.html");
                     }
                 });
-
                 $('#fechaInicio').change(function () {
                     let fechaFin = $("#fechaInicio").val();
                     $("#fechaFin").val(fechaFin);
-
                     let iniDate = moment(fechaFin, 'YYYY-MM-DD');
                     let maxDate = moment(iniDate).add(31, 'days').format('YYYY-MM-DD');
                     $("#fechaFin").attr('min', iniDate);
                     $("#fechaFin").attr('max', maxDate);
-
                 });
-
                 $("#btnBuscar").click(function () {
                     table.ajax.reload( );
                 });
-
                 $("#salir").click(function () {
                     $.getJSON("cerrarsesion", function (data) {});
                     $(location).attr('href', "index.html");
                 });
-
                 $("#btnGrabarAprobacion").click(function () {
                     let invnum = $("#secunciaAprob").val();
                     let numitm = $("#itemAprob").val();
@@ -427,9 +407,8 @@
                     let resexahml = $("#resexahml").val();
                     let htmlToRtfLocal = new window.htmlToRtf();
                     let rtfContent = htmlToRtfLocal.convertHtmlToRtf(resexahml);
-                    
-                    
-                    let parametro = {invnum: invnum, numitm: numitm, medcod: medcod, pachis: pachis,rtfContent:rtfContent};
+
+                    let parametro = {invnum: invnum, numitm: numitm, medcod: medcod, pachis: pachis, rtfContent: rtfContent};
                     $.getJSON("grabaraprobprocedimiento", parametro, function (data) {
                         if (data.resultado === "ok") {
                             table.ajax.reload( );
@@ -439,10 +418,7 @@
                             setTimeout(function () {
                                 $("#alertAprobar").fadeOut(2000);
                             }, 2000);
-
-
                         }
-
                     });
 
                 });
@@ -450,17 +426,11 @@
                 $("#btnGrabarRTF").click(function () {
                     let htmlContent = $('.contenido').val();
 
-                    //if (htmlContent!=='<br>') {
-                    //let htmlToRtfLocal = new window.htmlToRtf();
-                    //let rtfContent = htmlToRtfLocal.convertHtmlToRtf(htmlContent);
-
                     let invnum = $("#txtInvnum").val();
                     let numitm = $("#txtNumitm").val();
                     let tarcod = $("#txtTarcod").val();
-
-                    //alert(htmlContent);
-                    //alert(rtfContent);
-                    let parametro = {invnum: invnum, numitm: numitm, tarcod: tarcod, htmlContent: htmlContent};
+                    
+                    let parametro = {invnum: invnum, numitm: numitm, tarcod: tarcod, htmlContent: encodeURIComponent(htmlContent)};
                     $.getJSON("grabarprocedimiento", parametro, function (data) {
                         if (data.resultado === "ok") {
                             table.ajax.reload( );
@@ -472,24 +442,19 @@
                             }, 2000);
                         }
                     });
-                    /*} else {
-                     alert('Debe ingresar resultado');
-                     }*/
-
                 });
             });
             function aprobar(id) {
-
                 $("#secunciaAprob").val(id.invnum);
                 $("#itemAprob").val(id.numitm);
                 $("#medcod").val(id.medcod);
                 $("#pachis").val(id.pachis);
-                $("#resexahml").val(id.resexahml);                
+                $("#resexahml").val(id.resexahml);
                 $("#aprobarModal").modal("show");
             }
             function editar(id) {
-                console.log("resexahml:"+id.resexahml);
-                console.log("tarhtml:"+id.tarhtml);
+                console.log("resexahml:" + id.resexahml);
+                console.log("tarhtml:" + id.tarhtml);
                 $("#txtInvnum").val(id.invnum);
                 $("#txtNumitm").val(id.numitm);
                 $("#txtTarcod").val(id.tarcod);
@@ -504,37 +469,20 @@
                 } else if (id.resexahml.trim() === '<div><br></div>') {
                     $('.richText-editor').trigger('setContent', id.tarhtml);
                 } else {
-                    $('.richText-editor').html(id.resexahml);
+                    $('.richText-editor').html(decodeURIComponent(id.resexahml));
                 }
                 $("#RichText").modal("show");
 
             }
             function descargar(id) {
-                //c pued crear un servlet que valide si existe medico.getNamFirm(), antes de proceder
                 let parametro = {medcod: id.medcod};
                 $.getJSON("validarf", parametro, function (data) {
                     if (data.resultado === "ok") {
-
-                        //alert("El archivo debe estar guardado en un ruta publica");
-                        /*
-                         var pdfUrl = 'file:///D:/pdf/P20231030_CUSIPAUCARMENDOZACHRISTIAN-0159187-20274-1.pdf';
-                         window.open(pdfUrl, "_blank");*/
-
-                        //window.open("reporteresultadoprocemostrarPDF?archivo=" + id.namfile, "_blank"); 
-                        //codigo que genera el archivo
-                        /*$.getJSON("reporteresultadoprocemostrarPDF?invnum=" + id.invnum + "&numitm=" + id.numitm + "&medcod=" + id.medcod+"&pachis="+id.pachis, function (data) {
-                         if(data.resultado==="ok")
-                         alert("creo el pdf");
-                         else
-                         alert("NO pudo crear el PDF");
-                         });*/
                         window.open("reporteresultadoprocePDF?invnum=" + id.invnum + "&numitm=" + id.numitm + "&medcod=" + id.medcod, "_blank");
                     } else {
-
                         alert("Debe ingresar una firma. Vaya a CONFIGURACIÓN - Parametros del Sistema");
                     }
-                });
-                //window.open("reporteresultado?invnum="+id.invnum+"&numitm="+id.numitm+"&medcod="+id.medcod, "_blank");                
+                });            
             }
             function format(d) {
                 let resultado = '';
@@ -558,15 +506,12 @@
                 return (resultado);
             }
 
-            /*function mostrarDetalle(invnum) {
-             $(document).ready(function () {
-             $("#invnumseleccionado").val(invnum);
-             table1.ajax.reload( );
-             $("#detalleModal").modal("show");
-             });
-             
-             }*/
-
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2)
+                    return parts.pop().split(';').shift();
+            }
 
 
         </script>

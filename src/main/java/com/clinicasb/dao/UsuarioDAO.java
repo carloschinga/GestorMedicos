@@ -39,7 +39,7 @@ public class UsuarioDAO {
 
     public static Usuarios logueo(String usuario, String clave) {
         try {
-            EntityManager em = getEntity().createEntityManager();
+                EntityManager em = getEntity().createEntityManager();
             Query q = em.createNamedQuery("Usuarios.validar");
             q.setParameter("useusr", usuario);
             q.setParameter("passweb", clave);

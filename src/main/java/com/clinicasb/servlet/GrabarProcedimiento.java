@@ -83,7 +83,7 @@ public class GrabarProcedimiento extends HttpServlet {
                 }                
                 out.print("{\"resultado\":\"ok\"}");
             } catch (Exception ex) {
-                out.print("{\"resultado\":\"error\"}");
+                out.print("{\"resultado\":\"error\",\"mensaje\":\""+ex.getMessage()+"\"}");
             }
 
         }

@@ -17,6 +17,7 @@ import com.clinicasb.dto.ProcedimientosResultados;
 import com.clinicasb.dto.ProcedimientosResultadosArch;
 import com.clinicasb.dto.ProcedimientosResultadosArchPK;
 import com.clinicasb.dto.ProcedimientosResultadosPK;
+import com.clinicasb.util.Configuracion;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -67,12 +68,12 @@ public class GrabarAprobProcedimiento extends HttpServlet {
             String pachis = request.getParameter("pachis");
             String rtf = request.getParameter("rtfContent");
 
+            Configuracion configuracion = new Configuracion(getServletContext());
+            String nombreunidad = configuracion.getValor("pdf.directorio");    //D:\\
+
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.clinicasb.persis");
             EntityManager em = emf.createEntityManager();
             try {
-                /**
-                 * **************** GENERAR PDF *************************
-                 */
 
                 em.getTransaction().begin();
                 java.sql.Connection cn = em.unwrap(java.sql.Connection.class);
@@ -95,7 +96,7 @@ public class GrabarAprobProcedimiento extends HttpServlet {
 
                 InputStream report = getServletConfig().getServletContext().getResourceAsStream("ResultadoProcedimiento.jasper");
                 Map paramMap = new HashMap();
-                paramMap.put("invnum",Integer.parseInt(invnum) ); //19406
+                paramMap.put("invnum", Integer.parseInt(invnum)); //19406
                 paramMap.put("numitm", Integer.parseInt(numitm)); //1
                 paramMap.put("rutaimagen", appURL); //http://localhost/gestormedico/firmas/firmapatologo2.png
                 paramMap.put("rutalogo", appLogo); //http://localhost/gestormedico/firmas/firmapatologo2.png
@@ -106,11 +107,11 @@ public class GrabarAprobProcedimiento extends HttpServlet {
 
                 ProcedimientosCabeceraJpaController proceCabeDAO = new ProcedimientosCabeceraJpaController();
                 ProcedimientosCabecera proceCabe = proceCabeDAO.findProcedimientosCabecera(Integer.parseInt(invnum));
-                
-                String nombrearchivo = "P" + fechaFormateada + "_" + proceCabe.getPacnam().replace(" ","_") + "-" + pachis + "-" + invnum + "-" + numitm;
+
+                String nombrearchivo = "P" + fechaFormateada + "_" + proceCabe.getPacnam().replace(" ", "_") + "-" + pachis + "-" + invnum + "-" + numitm;
 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, paramMap, cn);
-                JasperExportManager.exportReportToPdfFile(jasperPrint, "D:\\pdf\\" + nombrearchivo + ".pdf");
+                JasperExportManager.exportReportToPdfFile(jasperPrint, nombreunidad + nombrearchivo + ".pdf");
                 cn.close();
 
                 /**
@@ -129,24 +130,23 @@ public class GrabarAprobProcedimiento extends HttpServlet {
                 pr.setUsecodApr(Integer.parseInt(session.getAttribute("codi").toString()));
                 pr.setEstres("P");
                 pr.setHostnameApr(nombreDePC);
-                
+
                 pr.setResexa(rtf);
 
                 prDAO.edit(pr);
 
-                ProcedimientosResultadosArchJpaController proceArchDAO= new ProcedimientosResultadosArchJpaController();
-                ProcedimientosResultadosArchPK proceArchPk= new ProcedimientosResultadosArchPK(Integer.parseInt(invnum), Integer.parseInt(numitm),1);
-                ProcedimientosResultadosArch proceArch=proceArchDAO.findProcedimientosResultadosArch(proceArchPk);
-                if(proceArch==null){
-                    proceArch= new ProcedimientosResultadosArch(proceArchPk);
-                    proceArch.setNamfile("D:\\pdf\\" + nombrearchivo + ".pdf");
+                ProcedimientosResultadosArchJpaController proceArchDAO = new ProcedimientosResultadosArchJpaController();
+                ProcedimientosResultadosArchPK proceArchPk = new ProcedimientosResultadosArchPK(Integer.parseInt(invnum), Integer.parseInt(numitm), 1);
+                ProcedimientosResultadosArch proceArch = proceArchDAO.findProcedimientosResultadosArch(proceArchPk);
+                if (proceArch == null) {
+                    proceArch = new ProcedimientosResultadosArch(proceArchPk);
+                    proceArch.setNamfile(nombreunidad + nombrearchivo + ".pdf");
                     proceArchDAO.create(proceArch);
+                } else {
+                    proceArch.setNamfile(nombreunidad + nombrearchivo + ".pdf");
+                    proceArchDAO.edit(proceArch);
                 }
-                else{
-                    proceArch.setNamfile("D:\\pdf\\" + nombrearchivo + ".pdf");
-                    proceArchDAO.edit(proceArch);}
-                
-                
+
                 ProcedimientosDetalleJpaController proceDetaDAO = new ProcedimientosDetalleJpaController();
                 ProcedimientosDetallePK procePK = new ProcedimientosDetallePK(Integer.parseInt(invnum), Integer.parseInt(numitm));
                 ProcedimientosDetalle proce = proceDetaDAO.findProcedimientosDetalle(procePK);
@@ -154,16 +154,12 @@ public class GrabarAprobProcedimiento extends HttpServlet {
                 proce.setExaapr("S");
                 proceDetaDAO.edit(proce);
 
-                //ProcedimientosCabeceraJpaController proceCabeDAO = new ProcedimientosCabeceraJpaController();
-                //ProcedimientosCabecera proceCabe = proceCabeDAO.findProcedimientosCabecera(Integer.parseInt(invnum));
                 proceCabe.setEstord("P");
                 proceCabeDAO.edit(proceCabe);
-                
-                
 
                 out.print("{\"resultado\":\"ok\"}");
             } catch (Exception ex) {
-                out.print("{\"resultado\":\""+ex.getMessage()+"\"}");
+                out.print("{\"resultado\":\"error\",\"mensaje\":\"" + ex.getMessage() + "\"}");
             } finally {
                 em.close();
                 emf.close();
