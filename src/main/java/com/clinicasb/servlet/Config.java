@@ -40,9 +40,12 @@ public class Config extends HttpServlet {
             try {
                 
                 Configuracion configuracion = new Configuracion(getServletContext());
-                String nombreunidad = configuracion.getValor("pdf.directorio");
-                String directoriodeFirmas = configuracion.getValor("fima.directorio");
-                resultado = "{\"resultado\":\"ok\",\"rutapdf\":\"" + nombreunidad+ "\",\"directoriofirmas\":\""+directoriodeFirmas+"\" }";
+                String nombreunidadPM = configuracion.getValor("pdf.directorioPM");
+                String nombreunidadLA = configuracion.getValor("pdf.directorioLA");
+                String nombreunidadEA = configuracion.getValor("pdf.directorioEA");
+                
+                String directoriodeFirmas = configuracion.getValor("firma.app");
+                resultado = "{\"resultado\":\"ok\",\"rutapdfPM\":\"" + nombreunidadPM+ "\",\"rutapdfLA\":\"" + nombreunidadLA+ "\",\"rutapdfEA\":\"" + nombreunidadEA+ "\",\"directoriofirmas\":\""+directoriodeFirmas+"\" }";
             } catch (Exception ex) {
                 resultado = "{\"resultado\":\"error\",\"mensaje\":\"" + ex.getMessage() + "\"}";
             }

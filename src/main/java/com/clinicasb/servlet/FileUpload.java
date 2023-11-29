@@ -6,6 +6,7 @@ package com.clinicasb.servlet;
 
 import com.clinicasb.dao.MedicosJpaController;
 import com.clinicasb.dto.Medicos;
+import com.clinicasb.util.Configuracion;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -36,14 +37,16 @@ public class FileUpload extends HttpServlet {
 
             
             
-            String uploadPath = getServletContext().getRealPath("");
+            /*String uploadPath = getServletContext().getRealPath("");
             
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
             uploadDir=uploadDir.getParentFile();
-            uploadPath=uploadDir.getAbsolutePath()+ File.separator+"firmas"+File.separator;
+            uploadPath=uploadDir.getAbsolutePath()+ File.separator+"firmas"+File.separator;*/
+            Configuracion configuracion = new Configuracion(getServletContext());            
+            String uploadPath=configuracion.getValor("firma.path");
             
             
             Part filePart = request.getPart("file");

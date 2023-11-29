@@ -6,9 +6,9 @@ package com.clinicasb.servlet;
 
 import com.clinicasb.dao.MedicosJpaController;
 import com.clinicasb.dto.Medicos;
+import com.clinicasb.util.Configuracion;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -60,25 +60,23 @@ public class ReporteResultadoEA extends HttpServlet {
             MedicosJpaController medicoDAO= new MedicosJpaController();
             Medicos medico= medicoDAO.findMedicos(medcod);
             
-            
-            //uploadPath="http://localhost/GestorMedicos/firmas/"+ medico.getNamFirm();
-            
-            
-            //uploadPath+= medico.getNamFirm();
-            
-            String baseURL = request.getRequestURL().toString();
+            /*String baseURL = request.getRequestURL().toString();
             String servletPath = request.getServletPath();
             String contextPath = request.getContextPath();
 
-            // La URL completa de la aplicación sería la concatenación de contextPath y servletPath
             String appURL = baseURL.replace(servletPath, "").replace(contextPath, "") + contextPath;
             String appLogo=appURL;
             appURL+="/firmas/"+medico.getNamFirm();
-            appLogo+="/clinica.jpg";
+            appLogo+="/clinica.jpg";*/
+            
+            Configuracion conf= new Configuracion(getServletConfig().getServletContext());
+            conf.getValor("firma.app");
+            String appURL =conf.getValor("firma.app")+"/"+medico.getNamFirm();
+            String appLogo=conf.getValor("firma.app")+"/clinica.jpg";
             
             InputStream report = getServletConfig().getServletContext().getResourceAsStream("ResultadoEa.jasper");
             Map paramMap = new HashMap();
-            paramMap.put("invnum", invnum); //19406
+              paramMap.put("invnum", invnum); //19406
             paramMap.put("numitm", numitm); //1
             paramMap.put("rutaimagen", appURL); //http://localhost/gestormedico/firmas/firmapatologo2.png
             paramMap.put("rutalogo", appLogo); //http://localhost/gestormedico/firmas/firmapatologo2.png

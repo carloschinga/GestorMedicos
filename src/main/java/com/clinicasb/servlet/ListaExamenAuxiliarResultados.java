@@ -4,13 +4,15 @@
  */
 package com.clinicasb.servlet;
 
-import com.clinicasb.dao.ProcedimientosResultadosJpaController;
-import com.clinicasb.dto.ProcedimientosResultados;
-import com.clinicasb.dto.ProcedimientosResultadosPK;
+
+import com.clinicasb.dao.ViewExamenAuxiliarResultadoMedicoJpaController;
+import com.clinicasb.dto.ViewExamenAuxiliarResultadoMedico;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.InetAddress;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +24,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author USUARIO
  */
-@WebServlet(name = "GrabarProcedimiento", urlPatterns = {"/grabarprocedimiento"})
-public class GrabarProcedimiento extends HttpServlet {
+@WebServlet(name = "ListaExamenAuxiliar", urlPatterns = {"/listaexamenauxiliarresultados"})
+public class ListaExamenAuxiliarResultados extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,54 +40,27 @@ public class GrabarProcedimiento extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(true);
-            boolean b = false;
-            /* TODO output your page here. You may use following sample code. */
-            String invnum = request.getParameter("invnum");
-            String numitm = request.getParameter("numitm");
-            String tarcod = request.getParameter("tarcod");
-            String medcod = session.getAttribute("medcod").toString();
-            String htmlContent = request.getParameter("htmlContent");
-            //String rtfContent = request.getParameter("rtfContent");
-
-            InetAddress localhost = InetAddress.getLocalHost();
-            String nombreDePC = localhost.getHostName();
-
+             /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession(true);             
+            String medcod =session.getAttribute("medcod").toString();
+            
+            String fechaInicio = request.getParameter("fechaInicio");
+            String fechaFin = request.getParameter("fechaFin");
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date filtroInicio = null, filtroFin = null;
             try {
-                ProcedimientosResultadosJpaController prDAO = new ProcedimientosResultadosJpaController();
-                ProcedimientosResultadosPK prPK = new ProcedimientosResultadosPK(Integer.parseInt(invnum), Integer.parseInt(numitm));
-                ProcedimientosResultados pr = prDAO.findProcedimientosResultados(prPK);
-                if (pr == null) {
-                    pr = new ProcedimientosResultados(prPK);
-                    b = true;
-                }
-                pr.setTarcod(tarcod);
-                pr.setDatres(new Date());
-                pr.setResexa("");
-                pr.setEstres("G");
-                pr.setMedcod(medcod);
-                pr.setEstado("S");
-                pr.setFeccre(new Date());
-                pr.setFecumv(new Date());
-                pr.setUsecod(Integer.parseInt(session.getAttribute("codi").toString()));
-                pr.setUsenam(session.getAttribute("logi").toString());
-                pr.setHostname(nombreDePC);
-                //pr.setFeccreApr(new Date());
-                //pr.setUsecodApr(Integer.parseInt(session.getAttribute("codi").toString()));
-                //pr.setHostnameApr(nombreDePC);
-                pr.setExadat(new Date());
-                pr.setResexahml(htmlContent);
-
-                if (b) {
-                    prDAO.create(pr);
-                } else {
-                    prDAO.edit(pr);
-                }                
-                out.print("{\"resultado\":\"ok\"}");
+                filtroInicio = formato.parse(fechaInicio);
+                filtroFin = formato.parse(fechaFin);
+                ViewExamenAuxiliarResultadoMedicoJpaController  vpDAO= new ViewExamenAuxiliarResultadoMedicoJpaController();
+                List<ViewExamenAuxiliarResultadoMedico> lista = vpDAO.listar(filtroInicio, filtroFin ,medcod);
+                Gson g = new Gson();
+                String resultado = g.toJson(lista);
+                resultado = "{\"data\":" + resultado + "}";
+                out.print(resultado);
             } catch (Exception ex) {
-                out.print("{\"resultado\":\"error\",\"mensaje\":\""+ex.getMessage()+"\"}");
+                String resultado = "{\"data\":}";
+                out.println(resultado);
             }
-
         }
     }
 

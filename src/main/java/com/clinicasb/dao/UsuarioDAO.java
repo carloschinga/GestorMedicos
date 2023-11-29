@@ -89,26 +89,7 @@ public class UsuarioDAO {
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            String pass="1234";
-            pass = Cripto.toHexString(getSHA(pass.toUpperCase()));
-            /*Usuarios u = UsuarioDAO.logueo("kike", "12yvvyvvy34");
-            if (u == null) {
-            System.out.println("Usuario no existe");
-            } else {
-            System.out.println("El usuario es:" + u.getUseusr());
-            }*/
-            
-            /*List<Usuario> lista= UsuarioDAO.listar();
-            for (Usuario u : lista) {
-            System.out.println(u.getLogiUsua());
-            }*/
-            System.out.println(pass);
-        } catch (NoSuchAlgorithmException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+    
 
     /**
      * @return the mensaje

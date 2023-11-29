@@ -4,12 +4,9 @@
  */
 package com.clinicasb.servlet;
 
-import com.clinicasb.dao.EaOrdenesDetalleJpaController;
-import com.clinicasb.dao.EaResultadosJpaController;
-import com.clinicasb.dto.EaOrdenesDetalle;
-import com.clinicasb.dto.EaOrdenesDetallePK;
-import com.clinicasb.dto.EaResultados;
-import com.clinicasb.dto.EaResultadosPK;
+import com.clinicasb.dao.ProcedimientosResultadosJpaController;
+import com.clinicasb.dto.ProcedimientosResultados;
+import com.clinicasb.dto.ProcedimientosResultadosPK;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -25,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author USUARIO
  */
-@WebServlet(name = "GrabarExamenAuxiliar", urlPatterns = {"/grabarexamenauxiliar"})
-public class GrabarExamenAuxiliar extends HttpServlet {
+@WebServlet(name = "GrabarResultadoProcedimiento", urlPatterns = {"/grabarresultadoprocedimiento"})
+public class GrabarResultadoProcedimiento extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,33 +37,32 @@ public class GrabarExamenAuxiliar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(true);
             boolean b = false;
             /* TODO output your page here. You may use following sample code. */
             String invnum = request.getParameter("invnum");
             String numitm = request.getParameter("numitm");
-            String exacod = request.getParameter("exacod");
+            String tarcod = request.getParameter("tarcod");
             String medcod = session.getAttribute("medcod").toString();
             String htmlContent = request.getParameter("htmlContent");
-            String rtfContent = request.getParameter("rtfContent");
+            //String rtfContent = request.getParameter("rtfContent");
 
             InetAddress localhost = InetAddress.getLocalHost();
             String nombreDePC = localhost.getHostName();
 
             try {
-                EaResultadosJpaController prDAO = new EaResultadosJpaController();
-                EaResultadosPK prPK = new EaResultadosPK(Integer.parseInt(invnum), Integer.parseInt(numitm));
-                EaResultados pr = prDAO.findEaResultados(prPK);
+                ProcedimientosResultadosJpaController prDAO = new ProcedimientosResultadosJpaController();
+                ProcedimientosResultadosPK prPK = new ProcedimientosResultadosPK(Integer.parseInt(invnum), Integer.parseInt(numitm));
+                ProcedimientosResultados pr = prDAO.findProcedimientosResultados(prPK);
                 if (pr == null) {
-                    pr = new EaResultados(prPK);
+                    pr = new ProcedimientosResultados(prPK);
                     b = true;
                 }
-                pr.setExacod(exacod);
+                pr.setTarcod(tarcod);
                 pr.setDatres(new Date());
-                pr.setResexa(rtfContent);
-                pr.setEstres("P");
+                pr.setResexa("");
+                pr.setEstres("G");
                 pr.setMedcod(medcod);
                 pr.setEstado("S");
                 pr.setFeccre(new Date());
@@ -74,34 +70,20 @@ public class GrabarExamenAuxiliar extends HttpServlet {
                 pr.setUsecod(Integer.parseInt(session.getAttribute("codi").toString()));
                 pr.setUsenam(session.getAttribute("logi").toString());
                 pr.setHostname(nombreDePC);
-                pr.setExadat(new Date());
-                //pr.setSercod
-                pr.setUsecodRes(Integer.parseInt(session.getAttribute("codi").toString()));
-                pr.setFeccreRes(new Date());
-                pr.setHostnameRes(nombreDePC);
-                
                 //pr.setFeccreApr(new Date());
                 //pr.setUsecodApr(Integer.parseInt(session.getAttribute("codi").toString()));
                 //pr.setHostnameApr(nombreDePC);
-                
-                //pr.setRespacs(exacod);                
-                pr.setResexahtml(htmlContent);
+                pr.setExadat(new Date());
+                pr.setResexahml(htmlContent);
 
                 if (b) {
                     prDAO.create(pr);
                 } else {
                     prDAO.edit(pr);
-                }
-                EaOrdenesDetalleJpaController eaOdDAO= new EaOrdenesDetalleJpaController();
-                EaOrdenesDetallePK eaOdPK= new EaOrdenesDetallePK(Integer.parseInt(invnum), Integer.parseInt(numitm));
-                EaOrdenesDetalle eaOd = eaOdDAO.findEaOrdenesDetalle(eaOdPK);
-                eaOd.setEstexa("P");
-                eaOd.setExaapr("S");
-                eaOdDAO.edit(eaOd);
-                
+                }                
                 out.print("{\"resultado\":\"ok\"}");
             } catch (Exception ex) {
-                out.print("{\"resultado\":\"error\"}");
+                out.print("{\"resultado\":\"error\",\"mensaje\":\""+ex.getMessage()+"\"}");
             }
 
         }

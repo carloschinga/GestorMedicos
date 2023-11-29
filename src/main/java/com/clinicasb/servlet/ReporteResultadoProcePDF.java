@@ -6,6 +6,7 @@ package com.clinicasb.servlet;
 
 import com.clinicasb.dao.MedicosJpaController;
 import com.clinicasb.dto.Medicos;
+import com.clinicasb.util.Configuracion;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -76,21 +77,23 @@ public class ReporteResultadoProcePDF extends HttpServlet {
             //uploadPath="http://localhost/GestorMedicos/firmas/"+ medico.getNamFirm();
             
             
-            //uploadPath+= medico.getNamFirm();
-            
-            String baseURL = request.getRequestURL().toString();
+            /*String baseURL = request.getRequestURL().toString();
             String servletPath = request.getServletPath();
             String contextPath = request.getContextPath();
             
             String ruta= baseURL.substring(0, baseURL.length()- servletPath.length());
             ruta=baseURL.substring(0,ruta.length()- contextPath.length());
             
-            // La URL completa de la aplicación sería la concatenación de contextPath y servletPath
+            
             String appURL = baseURL.replace(servletPath, "").replace(contextPath, "") + contextPath;
             String appLogo=appURL;
             
             appURL=ruta+"/firmas/"+medico.getNamFirm();
-            appLogo=ruta+"/firmas/clinica.jpg";
+            appLogo=ruta+"/firmas/clinica.jpg";*/
+            Configuracion conf= new Configuracion(getServletConfig().getServletContext());
+            conf.getValor("firma.app");
+            String appURL =conf.getValor("firma.app")+"/"+medico.getNamFirm();
+            String appLogo=conf.getValor("firma.app")+"/clinica.jpg";
             
             InputStream report = getServletConfig().getServletContext().getResourceAsStream("ResultadoProcedimiento.jasper");
             Map paramMap = new HashMap();

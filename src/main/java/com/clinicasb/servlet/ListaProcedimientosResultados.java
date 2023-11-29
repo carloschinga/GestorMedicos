@@ -43,6 +43,8 @@ public class ListaProcedimientosResultados extends HttpServlet {
             HttpSession session = request.getSession(true);             
             String medcod =session.getAttribute("medcod").toString();
             
+            String token=request.getParameter("token");
+            String logi=request.getParameter("logi");
             String fechaInicio = request.getParameter("fechaInicio");
             String fechaFin = request.getParameter("fechaFin");
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");

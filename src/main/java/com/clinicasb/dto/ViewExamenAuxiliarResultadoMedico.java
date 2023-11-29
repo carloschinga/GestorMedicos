@@ -18,31 +18,38 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author USUARIO
  */
 @Entity
-@Table(name = "view_examen_auxiliar")
+@Table(name = "view_examen_auxiliar_resultado_medico")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ViewExamenAuxiliar.findAll", query = "SELECT v FROM ViewExamenAuxiliar v"),
-        @NamedQuery(name = "ViewExamenAuxiliar.findByFechaFiltroBeetwen", query = "SELECT v FROM ViewExamenAuxiliar v WHERE  v.medcod = :medcod and v.fechaFiltro BETWEEN :startDate and :endDate  ORDER BY v.secuencia"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findBySecuencia", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.secuencia = :secuencia"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByNumitm", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.numitm = :numitm"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByHistoria", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.historia = :historia"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByPaciente", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.paciente = :paciente"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByTipoPlan", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.tipoPlan = :tipoPlan"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByExacod", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.exacod = :exacod"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByExamen", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.examen = :examen"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByFechaOrden", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.fechaOrden = :fechaOrden"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByFechaCreacion", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.fechaCreacion = :fechaCreacion"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByFechaFiltro", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.fechaFiltro = :fechaFiltro"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByTieneCreacion", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.tieneCreacion = :tieneCreacion"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByFechaTomaExamen", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.fechaTomaExamen = :fechaTomaExamen"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByMedcod", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.medcod = :medcod"),
-    @NamedQuery(name = "ViewExamenAuxiliar.findByUsecodApr", query = "SELECT v FROM ViewExamenAuxiliar v WHERE v.usecodApr = :usecodApr")})
-public class ViewExamenAuxiliar implements Serializable {
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findAll", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findBySecuencia", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.secuencia = :secuencia"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByFechaFiltroBeetwen", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE  v.medcod = :medcod and v.fechaFiltro BETWEEN :startDate and :endDate  ORDER BY v.secuencia"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByNumitm", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.numitm = :numitm"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByPrfnum", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.prfnum = :prfnum"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByPacdoc", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.pacdoc = :pacdoc"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByHistoria", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.historia = :historia"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByPaciente", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.paciente = :paciente"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByFechaNaci", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.fechaNaci = :fechaNaci"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByTipoPlan", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.tipoPlan = :tipoPlan"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByExacod", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.exacod = :exacod"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByExamen", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.examen = :examen"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByFechaOrden", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.fechaOrden = :fechaOrden"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByFechaCreacion", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.fechaCreacion = :fechaCreacion"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByFechaFiltro", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.fechaFiltro = :fechaFiltro"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByTieneCreacion", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.tieneCreacion = :tieneCreacion"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByFechaTomaExamen", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.fechaTomaExamen = :fechaTomaExamen"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByMedcod", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.medcod = :medcod"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByUsecodApr", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.usecodApr = :usecodApr"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findByFeccreApr", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.feccreApr = :feccreApr"),
+    @NamedQuery(name = "ViewExamenAuxiliarResultadoMedico.findBySexcod", query = "SELECT v FROM ViewExamenAuxiliarResultadoMedico v WHERE v.sexcod = :sexcod")})
+public class ViewExamenAuxiliarResultadoMedico implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,6 +64,13 @@ public class ViewExamenAuxiliar implements Serializable {
     private int numitm;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "prfnum")
+    private int prfnum;
+    @Size(max = 20)
+    @Column(name = "pacdoc")
+    private String pacdoc;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 7)
     @Column(name = "Historia")
     private String historia;
@@ -65,6 +79,9 @@ public class ViewExamenAuxiliar implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "Paciente")
     private String paciente;
+    @Column(name = "FechaNaci")
+    @Temporal(TemporalType.DATE)
+    private Date fechaNaci;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
@@ -113,8 +130,20 @@ public class ViewExamenAuxiliar implements Serializable {
     private String resexa;
     @Column(name = "usecod_apr")
     private Integer usecodApr;
+    @Column(name = "feccre_apr")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date feccreApr;
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "exahtml")
+    private String exahtml;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "sexcod")
+    private String sexcod;
 
-    public ViewExamenAuxiliar() {
+    public ViewExamenAuxiliarResultadoMedico() {
     }
 
     public int getSecuencia() {
@@ -133,6 +162,22 @@ public class ViewExamenAuxiliar implements Serializable {
         this.numitm = numitm;
     }
 
+    public int getPrfnum() {
+        return prfnum;
+    }
+
+    public void setPrfnum(int prfnum) {
+        this.prfnum = prfnum;
+    }
+
+    public String getPacdoc() {
+        return pacdoc;
+    }
+
+    public void setPacdoc(String pacdoc) {
+        this.pacdoc = pacdoc;
+    }
+
     public String getHistoria() {
         return historia;
     }
@@ -147,6 +192,14 @@ public class ViewExamenAuxiliar implements Serializable {
 
     public void setPaciente(String paciente) {
         this.paciente = paciente;
+    }
+
+    public Date getFechaNaci() {
+        return fechaNaci;
+    }
+
+    public void setFechaNaci(Date fechaNaci) {
+        this.fechaNaci = fechaNaci;
     }
 
     public String getTipoPlan() {
@@ -243,6 +296,30 @@ public class ViewExamenAuxiliar implements Serializable {
 
     public void setUsecodApr(Integer usecodApr) {
         this.usecodApr = usecodApr;
+    }
+
+    public Date getFeccreApr() {
+        return feccreApr;
+    }
+
+    public void setFeccreApr(Date feccreApr) {
+        this.feccreApr = feccreApr;
+    }
+
+    public String getExahtml() {
+        return exahtml;
+    }
+
+    public void setExahtml(String exahtml) {
+        this.exahtml = exahtml;
+    }
+
+    public String getSexcod() {
+        return sexcod;
+    }
+
+    public void setSexcod(String sexcod) {
+        this.sexcod = sexcod;
     }
     
 }

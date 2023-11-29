@@ -3,12 +3,10 @@ $(document).ready(function () {
         $("#btnIngresar").css("display", "none");
         $("#loading").css("display", "block");
         let logi = $("#txtUsuario").val();
-        let pass = $("#txtClave").val();
-        let token = $("#txtUsuario").val();
-        let parametro = {logi: logi, pass: pass, token: token};
+        let pass = $("#txtClave").val();        
+        let parametro = {logi: logi, pass: pass};
         $.getJSON("validar", parametro, function (data) {
-            if (data.resultado === "ok") {
-                console.log(data);
+            if (data.resultado === "ok") {                
                 parametro = {logi: data.user, nombre: data.name, nivel: data.nivel, codi: data.codi, medcod: data.medcod};
                 $.getJSON("iniciarsesion", parametro, function (data) {
                 });

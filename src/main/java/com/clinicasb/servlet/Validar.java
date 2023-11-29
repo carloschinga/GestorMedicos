@@ -40,10 +40,9 @@ public class Validar extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String tokenc = "";
-            String token = request.getParameter("token");
-            tokenc = Token.generateToken(token);
             String resultado="";
             String user = request.getParameter("logi");
+            tokenc = Token.generateToken(user);
             String pass = request.getParameter("pass");
             try{
                 pass = Cripto.toHexString(getSHA(pass.toUpperCase()));

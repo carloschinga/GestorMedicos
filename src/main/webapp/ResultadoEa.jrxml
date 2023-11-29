@@ -10,15 +10,10 @@
 	<parameter name="rutaimagen" class="java.lang.String"/>
 	<parameter name="rutalogo" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT        proca.invnum AS secuencia,prode.numitm, proca.cuscod, pacdoc,proca.cusnam AS Paciente, CONVERT(DATE,paci.pacfen) as FechaNaci,
-DATEDIFF(year,paci.pacfen,GETDATE()) as edad, case proca.sexcod when 'FE' then 'FEMENINO' else 'MASCULINO' end as sexcod,pls.plndes AS TipoPlan,  
-prode.exacod, prode.exades, proca.datord AS FechaOrden, CONVERT(DATE, proca.datord) AS FechaFiltro, 
-                         prores.resexa, prode.medcod, resexa as resultado,prores.resexahtml
-FROM            ea_ordenes_cabecera AS proca 
-INNER JOIN		dbo.pacientes as paci on proca.cuscod=paci.pachis   
-INNER JOIN		dbo.ea_ordenes_detalle AS prode ON proca.invnum = prode.invnum and    proca.invnum= $P{invnum}  and prode.numitm=  $P{numitm} 
-INNER JOIN		dbo.planes_seguro AS pls ON pls.plnnum = proca.plnnum 
-LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prode.numitm = prores.numitm AND prode.exacod = prores.exacod]]>
+		<![CDATA[select secuencia,numitm,historia,pacdoc,paciente,FechaNaci,
+DATEDIFF(year,FechaNaci,GETDATE()) as edad,case sexcod when 'FE' then 'FEMENINO' else 'MASCULINO' end as sexcod,
+exacod,examen ,FechaOrden,FechaFiltro,resexa ,medcod,resexa as resultado,resexahtml
+from view_examen_auxiliar_resultado_medico where  secuencia=  $P{invnum} and numitm= $P{numitm}]]>
 	</queryString>
 	<field name="secuencia" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="secuencia"/>
@@ -28,17 +23,17 @@ LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prod
 		<property name="com.jaspersoft.studio.field.name" value="numitm"/>
 		<property name="com.jaspersoft.studio.field.label" value="numitm"/>
 	</field>
-	<field name="cuscod" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="cuscod"/>
-		<property name="com.jaspersoft.studio.field.label" value="cuscod"/>
+	<field name="historia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="historia"/>
+		<property name="com.jaspersoft.studio.field.label" value="historia"/>
 	</field>
 	<field name="pacdoc" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="pacdoc"/>
 		<property name="com.jaspersoft.studio.field.label" value="pacdoc"/>
 	</field>
-	<field name="Paciente" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Paciente"/>
-		<property name="com.jaspersoft.studio.field.label" value="Paciente"/>
+	<field name="paciente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="paciente"/>
+		<property name="com.jaspersoft.studio.field.label" value="paciente"/>
 	</field>
 	<field name="FechaNaci" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="FechaNaci"/>
@@ -52,17 +47,13 @@ LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prod
 		<property name="com.jaspersoft.studio.field.name" value="sexcod"/>
 		<property name="com.jaspersoft.studio.field.label" value="sexcod"/>
 	</field>
-	<field name="TipoPlan" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="TipoPlan"/>
-		<property name="com.jaspersoft.studio.field.label" value="TipoPlan"/>
-	</field>
 	<field name="exacod" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="exacod"/>
 		<property name="com.jaspersoft.studio.field.label" value="exacod"/>
 	</field>
-	<field name="exades" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="exades"/>
-		<property name="com.jaspersoft.studio.field.label" value="exades"/>
+	<field name="examen" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="examen"/>
+		<property name="com.jaspersoft.studio.field.label" value="examen"/>
 	</field>
 	<field name="FechaOrden" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.name" value="FechaOrden"/>
@@ -75,7 +66,7 @@ LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prod
 	<field name="resexa" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="resexa"/>
 		<property name="com.jaspersoft.studio.field.label" value="resexa"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ea_resultados"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="view_examen_auxiliar_resultado_medico"/>
 	</field>
 	<field name="medcod" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="medcod"/>
@@ -84,12 +75,12 @@ LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prod
 	<field name="resultado" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="resultado"/>
 		<property name="com.jaspersoft.studio.field.label" value="resultado"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ea_resultados"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="view_examen_auxiliar_resultado_medico"/>
 	</field>
 	<field name="resexahtml" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="resexahtml"/>
 		<property name="com.jaspersoft.studio.field.label" value="resexahtml"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="ea_resultados"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="view_examen_auxiliar_resultado_medico"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -191,7 +182,7 @@ LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prod
 				<textElement>
 					<font fontName="Calibri" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Paciente}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{paciente}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="110" y="139" width="143" height="12" uuid="3124ef2c-5aab-430d-85eb-5c9936668eef">
@@ -227,7 +218,7 @@ LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prod
 				<textElement>
 					<font fontName="Calibri" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cuscod}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{historia}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="388" y="97" width="143" height="12" uuid="a3c7c859-37d3-4143-a726-f3f08da04039">
@@ -297,7 +288,7 @@ LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prod
 				<textElement>
 					<font fontName="Calibri" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{exades}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{examen}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -308,9 +299,9 @@ LEFT OUTER JOIN	ea_resultados AS prores ON prode.invnum = prores.invnum AND prod
 		<band height="6" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="406" splitType="Stretch">
+		<band height="352" splitType="Stretch">
 			<textField>
-				<reportElement x="40" y="2" width="479" height="378" uuid="82360767-fda4-498a-965b-91156acbf577">
+				<reportElement x="40" y="2" width="479" height="327" uuid="6d044a18-88c8-4282-bfc8-92b54f5972c2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea187cff-e015-4827-80e5-0dbfbee0de2b"/>
 				</reportElement>
 				<textElement markup="html"/>

@@ -21,8 +21,6 @@
     <class>com.clinicasb.dto.ProcedimientosResultados</class>
     <class>com.clinicasb.dto.Medicos</class>
     <class>com.clinicasb.dto.ViewTrazabilidadEa</class>
-    <class>com.clinicasb.dto.EaResultados</class>
-    <class>com.clinicasb.dto.ViewExamenAuxiliar</class>
     <class>com.clinicasb.dto.ProcedimientosDetalle</class>
     <class>com.clinicasb.dto.EaOrdenesDetalle</class>
     <class>com.clinicasb.dto.EaOrdenesCabecera</class>
@@ -31,9 +29,12 @@
     <class>com.clinicasb.dto.ProcedimientosResultadosArch</class>
     <class>com.clinicasb.dto.Tarifario</class>
     <class>com.clinicasb.dto.ViewProcedimientoResultadoMedico</class>
+    <class>com.clinicasb.dto.EaResultadosImagenes</class>
+    <class>com.clinicasb.dto.EaResultados</class>
+    <class>com.clinicasb.dto.ViewExamenAuxiliarResultadoMedico</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://192.168.0.29\SERVILOLCLI20:1433;databaseName=LOLCLI9000"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://192.168.0.29\SERVILOLCLI20:1433;databaseName=LOLCLI9000_PRUEBAS_1"/>
       <property name="javax.persistence.jdbc.user" value="applolcli"/>
       <property name="javax.persistence.jdbc.password" value="Lolcliapp23"/>
       <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>

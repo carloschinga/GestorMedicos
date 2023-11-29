@@ -69,7 +69,7 @@ public class GrabarAprobProcedimiento extends HttpServlet {
             String rtf = request.getParameter("rtfContent");
 
             Configuracion configuracion = new Configuracion(getServletContext());
-            String nombreunidad = configuracion.getValor("pdf.directorio");    //D:\\
+            String nombreunidad = configuracion.getValor("pdf.directorioPM");    //D:\\
 
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.clinicasb.persis");
             EntityManager em = emf.createEntityManager();
@@ -81,18 +81,10 @@ public class GrabarAprobProcedimiento extends HttpServlet {
                 MedicosJpaController medicoDAO = new MedicosJpaController();
                 Medicos medico = medicoDAO.findMedicos(medcod);
 
-                String baseURL = request.getRequestURL().toString();
-                String servletPath = request.getServletPath();
-                String contextPath = request.getContextPath();
-
-                String ruta = baseURL.substring(0, baseURL.length() - servletPath.length());
-                ruta = baseURL.substring(0, ruta.length() - contextPath.length());
-
-                String appURL = baseURL.replace(servletPath, "").replace(contextPath, "") + contextPath;
-                String appLogo = appURL;
-
-                appURL = ruta + "/firmas/" + medico.getNamFirm();
-                appLogo = ruta + "/firmas/clinica.jpg";
+                Configuracion conf = new Configuracion(getServletConfig().getServletContext());
+                conf.getValor("firma.app");
+                String appURL = conf.getValor("firma.app") + "/" + medico.getNamFirm();
+                String appLogo = conf.getValor("firma.app") + "/clinica.jpg";
 
                 InputStream report = getServletConfig().getServletContext().getResourceAsStream("ResultadoProcedimiento.jasper");
                 Map paramMap = new HashMap();
