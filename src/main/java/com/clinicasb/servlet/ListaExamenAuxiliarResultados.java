@@ -22,9 +22,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author USUARIO
+ * @author sbdeveloperw
  */
-@WebServlet(name = "ListaExamenAuxiliar", urlPatterns = {"/listaexamenauxiliarresultados"})
+@WebServlet(name = "ListaExamenAuxiliarResultados", urlPatterns = {"/listaexamenauxiliarresultados"})
 public class ListaExamenAuxiliarResultados extends HttpServlet {
 
     /**
@@ -40,7 +40,7 @@ public class ListaExamenAuxiliarResultados extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-             /* TODO output your page here. You may use following sample code. */
+            /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession(true);             
             String medcod =session.getAttribute("medcod").toString();
             
@@ -50,7 +50,7 @@ public class ListaExamenAuxiliarResultados extends HttpServlet {
             Date filtroInicio = null, filtroFin = null;
             try {
                 filtroInicio = formato.parse(fechaInicio);
-                filtroFin = formato.parse(fechaFin);
+                filtroFin = formato.parse(fechaFin);                
                 ViewExamenAuxiliarResultadoMedicoJpaController  vpDAO= new ViewExamenAuxiliarResultadoMedicoJpaController();
                 List<ViewExamenAuxiliarResultadoMedico> lista = vpDAO.listar(filtroInicio, filtroFin ,medcod);
                 Gson g = new Gson();
