@@ -160,7 +160,7 @@ $(document).ready(function () {
         let invnum = $("#secunciaAprob").val();
         let numitm = $("#itemAprob").val();
         let medcod = $("#medcod").val();
-        let pachis = $("#pachis").val();
+        let pachis = $("#pachis").val();        
         let resexahml = $("#resexahml").val();
         let htmlToRtfLocal = new window.htmlToRtf();
         let rtfContent = htmlToRtfLocal.convertHtmlToRtf(resexahml);
@@ -219,7 +219,7 @@ function aprobar(id) {
     $("#itemAprob").val(id.numitm);
     $("#medcod").val(id.medcod);
     $("#pachis").val(id.historia);
-    $("#resexahml").val(id.resexahml);
+    $("#resexahml").val(id.resexahtml);
     $("#aprobarModal").modal("show");
 }
 function editar(id) {       

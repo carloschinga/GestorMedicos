@@ -18,6 +18,7 @@ import com.clinicasb.dto.EaResultadosImagenesPK;
 import com.clinicasb.dto.EaResultadosPK;
 import com.clinicasb.dto.Medicos;
 import com.clinicasb.util.Configuracion;
+import com.clinicasb.util.HtmlToRtfConverter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -120,9 +121,9 @@ public class GrabarAprobEA extends HttpServlet {
                 ea.setFeccreApr(new Date());
                 ea.setUsecodApr(Integer.valueOf(session.getAttribute("codi").toString()));
                 ea.setEstres("P");
-                ea.setHostnameApr(nombreDePC);
-
+                ea.setHostnameApr(nombreDePC);                
                 ea.setResexa(rtf);
+                //ea.setResexa(rtf);
                 eaDAO.edit(ea);
 
                 EaResultadosImagenesJpaController earImgDAO = new EaResultadosImagenesJpaController();
